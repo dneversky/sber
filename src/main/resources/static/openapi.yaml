@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Swagger - Open API 3.0
+  version: "2.2.0"
+servers:
+  - url: http://localhost:8080/api/
+tags:
+  - name: validation
+paths:
+  /checkBrackets:
+    post:
+      tags:
+        - validation
+      summary: "Проверка корректно расставленных скобок в тексте"
+      description: В случае успешной проверки вернет значение true для свойства isCorrect в теле ответа
+      operationId: checkBrackets
+      requestBody:
+          description: Тело запроса для выполнения операции
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextRequest'
+      responses:
+        '200':
+          description: Успешная операция
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        isCorrect:
+          type: boolean
+          example: false
+    TextRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          example: "Я из лесу вышел (был сильный мороз)"
